@@ -1,5 +1,22 @@
-<!-- Q2) Placer la balise de votre composant TodoList ici -->
+Q2) Placer la balise de votre composant TodoList ici
 
 <hr/>
 <!-- Q1) Pour tester rapidement -->
 <h1>Liste de choses à faire L3 MIAGE (debug)</h1>
+
+<form (submit)="ajouterTache(lab.value)">
+  <input #lab name="tache"/>
+</form>
+
+<ul *ngIf="obSListe | async as L">
+  <li *ngFor="let item of L.items">
+    <input type="checkbox" name="isDone" [ngModel]="item.isDone" (ngModelChange)="do(item)" />
+    <input #label name="label" value="{{item.label}}" (change)="updateTache(label.value,item)"/>
+    <button (click)="supprimerTache(item)">Supprimer</button>
+  </li>
+</ul>
+
+<pre>
+  {{ obSListe | async | json }}
+</pre>
+
